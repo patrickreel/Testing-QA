@@ -26,7 +26,9 @@ jobs:
       id: extract_branch
     
     - name: Checkout branch
-      uses: actions/checkout@ ${{ steps.extract_branch.outputs.branch }}
+      uses: actions/checkout@master
+      with:
+       ref: ${{ steps.extract_branch_outputs.branch }}
     
     - name: Push to ECR
       run: echo ${{ steps.extract_branch.outputs.branch }}
