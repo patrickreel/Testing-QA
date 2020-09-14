@@ -6,7 +6,7 @@ name: Manual workflow
 # or API.
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
      - master
      - develop
 
@@ -26,6 +26,11 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+    
+    - name: Checkout branch
+      uses: actions/checkout@master
+      with:
+       ref: ${{ steps.extract_branch_outputs.branch }}
     
     - name: Push to ECR
       run: echo ${{ steps.extract_branch.outputs.branch }}
